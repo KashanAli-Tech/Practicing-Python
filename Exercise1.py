@@ -2,9 +2,16 @@
 # git add .
 # git commit -m "message"
 # git push
-car1 = "Mercedes"
-car2 = "BMW"
-choice = int(input("enter car number 1 or 2"))
-if choice == 1:
-    car1 = "Audi"
-    print(car1)
+#FizzBuzz+
+#Print numbers 1–100
+#Replace multiples of 3 with "Fizz", 5 with "Buzz", 7 with "Pop", combos like "FizzBuzzPop"
+
+for i in range(1, 101):
+    if i%3==0:
+        print("Fizz")
+    elif i%5==0:
+        print("Buzz")
+    elif i%7==0:
+        print("Pop")
+    else:
+        print(i)

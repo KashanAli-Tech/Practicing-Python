@@ -141,6 +141,47 @@ def Analytics():
     count = len(words)
     print("Word Count: ", count)
 
+def GridExplorer():
+    Grid = [[" ", " ", " "],
+            [" ", " ", " "],
+            [" ", " ", " "]]
+
+    player = [1, 1]
+
+    while True:
+
+        temp = [[" ", " ", " "],
+                [" ", " ", " "],
+                [" ", " ", " "]]
+
+        row, col = player
+        temp[row][col] = "P"
+
+        for r in temp:
+            print(r)
+
+        direction = input("Move (WASD), E for Exit: ").lower()
+
+        if direction == "e":
+            break
+
+        new_row, new_col = player
+
+        if direction == "w":
+            new_row -= 1
+        elif direction == "s":
+            new_row += 1
+        elif direction == "a":
+            new_col -= 1
+        elif direction == "d":
+            new_col += 1
+
+        if 0 <= new_row <= 2 and 0 <= new_col <= 2:
+            player[0] = new_row
+            player[1] = new_col
+
+
+    
 
 while True:
     print("Welcome to Life Manager System\n"
@@ -163,8 +204,7 @@ while True:
         case 4:
             Analytics()
         case 5:
-            #call function for Grid Explorer
-            pass
+            GridExplorer()
         case 6:
             #call function for Save/Load
             pass

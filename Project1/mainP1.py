@@ -1,4 +1,6 @@
 contacts = dict()
+tasks = dict()
+accounts = dict()
 
 def Contacts(contacts):
     # contacts = {name : phone_number}
@@ -26,20 +28,118 @@ def Contacts(contacts):
         case 3:
             newcontact_name = input("Enter the name of the Contact: ")
             newcontact_number = input("Enter the new phone number of the Contact: ")
-            contacts.update({newcontact_name:newcontact_number})
-            print("Contact Updated Successfully")
+            if newcontact_name in contacts:
+                contacts.update({newcontact_name:newcontact_number})
+                print("Contact Updated Successfully")
+            else:
+                print("Contact not found")
 
         case 4:
             newcontact_name = input("Enter the name of the Contact: ")
-            contacts.pop(newcontact_name)
-            print("Contact Deleted Successfully")
+            if newcontact_name in contacts:
+                contacts.pop(newcontact_name)
+                print("Contact Deleted Successfully")
+            else:
+                print("Contact not found")
             
         case _:
             print("Please enter a number between 1-7")
 
+def Tasks(tasks):
+    # tasks = {task_name : status}
+    print("Welcome to Tasks\n" 
+    "1. Add Task\n"
+    "2. Mark Complete\n"
+    "3. Delete Task\n")
+    tasks_menu = int(input("Please enter an integer between 1-3: "))
 
+    match tasks_menu:
+        case 1:
+            newtask_name = input("Enter the name of the new task (set as incomplete by default): ")            
+            tasks.update({newtask_name:"Incomplete"})
+            print("Task Added Successfully")
+            
+        case 2:
+            task_name = input("Enter the name of the task you want to set as complete: ")
+            if task_name in tasks:
+                tasks.update({task_name:"Complete"})
+                print("Task set as Complete Successfully")
 
+            else:
+                print("Task not found")
 
+        case 3:
+            task_name = input("Enter the name of the Contact: ")
+            if task_name in tasks:
+                tasks.pop(task_name)
+                print("Task Deleted Successfully")
+            else:
+                print("Task not found")
+
+        case _:
+            print("Please enter a number between 1-3")
+
+class Account():
+    def __init__(self, name, balance):
+        self.name = name
+        self.balance = balance
+    
+    def Deposit(self, amount):
+        self.balance += amount
+        return self.balance
+    
+    def Withdraw(self, amount):
+        if self.balance >= amount:
+            self.balance -= amount
+            return self.balance
+        else:
+            return "Insufficient Funds"
+    def ViewBalance(self):
+        return self.balance
+
+def BankMenu(accounts):
+    print("Welcome to Bank\n" 
+    "1. Add an Account\n"
+    "2. Deposit Money\n"
+    "3. Withdraw Money\n"
+    "4. View Balance\n")
+    bank_menu = int(input("Please enter an integer between 1-4: "))
+
+    match bank_menu:
+        case 1:
+            accountholder_name = input("Enter the name of the account holder: ")
+            accountholder_balance = int(input("Enter the balance of the account: "))
+            accounts.update({accountholder_name: Account(accountholder_name, accountholder_balance)})
+            print("Account Added Successfully")
+            
+        case 2:
+            accountholder_name = input("Enter the name of the Account: ")
+            amount = int(input("Enter the amount you want to deposit: "))
+            account = accounts.get(accountholder_name)
+            new_balance = account.Deposit(amount)
+            print("New Balance: ", new_balance)
+
+        case 3:
+            accountholder_name = input("Enter the name of the Account: ")
+            amount = int(input("Enter the amount you want to Withdraw: "))
+            account = accounts.get(accountholder_name)
+            new_balance = account.Withdraw(amount)
+            print("New Balance: ", new_balance)
+
+        case 4:
+            accountholder_name = input("Enter the name of the Account: ")
+            account = accounts.get(accountholder_name)
+            balance = account.ViewBalance()
+            print("Balance : ", balance)
+            
+        case _:
+            print("Please enter a number between 1-4")
+
+def Analytics(): 
+    text = input("Enter the text (please avoid any extra spaces): ")
+    words = text.split()
+    count = len(words)
+    print("Word Count: ", count)
 
 
 while True:
@@ -55,17 +155,13 @@ while True:
 
     match menu_input:
         case 1:
-                Contacts(contacts)
-            
+            Contacts(contacts)
         case 2:
-            #call function for Tasks
-            pass
+            Tasks(tasks)
         case 3:
-            #call function for Bank Account
-            pass
+            BankMenu(accounts)
         case 4:
-            #call function for Analytics
-            pass
+            Analytics()
         case 5:
             #call function for Grid Explorer
             pass

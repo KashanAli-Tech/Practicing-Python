@@ -8,7 +8,7 @@
 #FizzBuzz+
 #Print numbers 1–100
 #Replace multiples of 3 with "Fizz", 5 with "Buzz", 7 with "Pop", combos like "FizzBuzzPop"
-"""
+
 for i in range(1, 101):
     if i%3==0:
         print("Fizz")
@@ -18,7 +18,7 @@ for i in range(1, 101):
         print("Pop")
     else:
         print(i)
-"""
+
 #Completed
 
 """ Palindrome Checker

@@ -3,9 +3,8 @@
 2-player game in terminal
 Detect win conditions properly"""
 
-"""Tic Tac Toe
-2-player game in terminal
-Detect win conditions properly"""
+
+# I might add validation in future
 
 Grid = [[" "," "," "],
         [" "," "," "],
@@ -104,3 +103,4 @@ while Available > 0:
     if CheckWin(Grid) == 2:
         print("Player 2 wins!")
         break
+    

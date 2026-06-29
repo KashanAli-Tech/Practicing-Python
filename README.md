@@ -66,7 +66,7 @@ At the moment:
 - Core systems are functional  
 - Structure is still being improved  
 - Save/Load system is planned  
-- Code is being refractored as I learn better practices  
+- Code is being refactored as I learn better practices  
 
 ---
 
@@ -81,7 +81,7 @@ At the moment:
 
 ##  Personal Insight
 
-This repository represents my early stage progression in software development therefore I am focusing less on perfect code and more on consistent improvement, logical thinking, and system design fundamentals. Each file reflects incremntal learning, where I test concepts immediately through implementation rather than theory alone.
+This repository represents my early stage progression in software development therefore I am focusing less on perfect code and more on consistent improvement, logical thinking, and system design fundamentals. Each file reflects incremental learning, where I test concepts immediately through implementation rather than theory alone.
 
 ---
 
@@ -94,4 +94,4 @@ If you see improvements or alternative approaches, feel free to reach out or con
 
 ##  Goal
 
-To streadily develop the ability to design and build structured, real world software systems using Python and to progress towards more advanced AI and ML projects.
+To steadily develop the ability to design and build structured, real world software systems using Python and to progress towards more advanced AI and ML projects.

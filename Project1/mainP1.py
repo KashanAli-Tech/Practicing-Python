@@ -1,150 +1,161 @@
-contacts = dict()
-tasks = dict()
-accounts = dict()
+import json
+
+datafile_read = open("Project1/Data.json", "r")
+data = json.load(datafile_read)
+
+contacts = data["contacts"]
+tasks = data["tasks"]
+accounts = data["bank"]
+
+datafile_read.close()
+
+
+def WriteFile():
+    datafile_write = open("Project1/Data.json", "w")
+
+    maindata = {
+        "contacts": contacts,
+        "tasks": tasks,
+        "bank": accounts
+    }
+
+    json.dump(maindata, datafile_write)
+
+    datafile_write.close()
+
 
 def Contacts(contacts):
-    # contacts = {name : phone_number}
-    print("Welcome to Contacts\n" 
-    "1. Add Contacts\n"
-    "2. Search Contacts\n"
-    "3. Update Contacts\n"
-    "4. Delete Contacts\n")
+
+    print("Welcome to Contacts\n"
+          "1. Add Contacts\n"
+          "2. Search Contacts\n"
+          "3. Update Contacts\n"
+          "4. Delete Contacts\n")
+
     contacts_menu = int(input("Please enter an integer between 1-4: "))
 
     match contacts_menu:
+
         case 1:
             newcontact_name = input("Enter the name of the Contact: ")
             newcontact_number = input("Enter the phone number of the Contact: ")
-            contacts.update({newcontact_name:newcontact_number})
-            print("Contact Added Successfully")
-            
+            contacts[newcontact_name] = newcontact_number
+
         case 2:
             newcontact_name = input("Enter the name of the Contact: ")
             if newcontact_name in contacts:
                 print(newcontact_name, ":", contacts[newcontact_name])
-            else:
-                print("Contact not found")
 
         case 3:
             newcontact_name = input("Enter the name of the Contact: ")
             newcontact_number = input("Enter the new phone number of the Contact: ")
             if newcontact_name in contacts:
-                contacts.update({newcontact_name:newcontact_number})
-                print("Contact Updated Successfully")
-            else:
-                print("Contact not found")
+                contacts[newcontact_name] = newcontact_number
 
         case 4:
             newcontact_name = input("Enter the name of the Contact: ")
             if newcontact_name in contacts:
                 contacts.pop(newcontact_name)
-                print("Contact Deleted Successfully")
-            else:
-                print("Contact not found")
-            
+
         case _:
-            print("Please enter a number between 1-7")
+            pass
+
 
 def Tasks(tasks):
-    # tasks = {task_name : status}
-    print("Welcome to Tasks\n" 
-    "1. Add Task\n"
-    "2. Mark Complete\n"
-    "3. Delete Task\n")
+
+    print("Welcome to Tasks\n"
+          "1. Add Task\n"
+          "2. Mark Complete\n"
+          "3. Delete Task\n")
+
     tasks_menu = int(input("Please enter an integer between 1-3: "))
 
     match tasks_menu:
-        case 1:
-            newtask_name = input("Enter the name of the new task (set as incomplete by default): ")            
-            tasks.update({newtask_name:"Incomplete"})
-            print("Task Added Successfully")
-            
-        case 2:
-            task_name = input("Enter the name of the task you want to set as complete: ")
-            if task_name in tasks:
-                tasks.update({task_name:"Complete"})
-                print("Task set as Complete Successfully")
 
-            else:
-                print("Task not found")
+        case 1:
+            newtask_name = input("Enter the name of the new task: ")
+            tasks[newtask_name] = "Incomplete"
+
+        case 2:
+            task_name = input("Enter the name of the task: ")
+            if task_name in tasks:
+                tasks[task_name] = "Complete"
 
         case 3:
-            task_name = input("Enter the name of the Contact: ")
+            task_name = input("Enter the name of the task: ")
             if task_name in tasks:
                 tasks.pop(task_name)
-                print("Task Deleted Successfully")
-            else:
-                print("Task not found")
 
         case _:
-            print("Please enter a number between 1-3")
+            pass
 
-class Account():
-    def __init__(self, name, balance):
-        self.name = name
-        self.balance = balance
-    
-    def Deposit(self, amount):
-        self.balance += amount
-        return self.balance
-    
-    def Withdraw(self, amount):
-        if self.balance >= amount:
-            self.balance -= amount
-            return self.balance
-        else:
-            return "Insufficient Funds"
-    def ViewBalance(self):
-        return self.balance
 
 def BankMenu(accounts):
-    print("Welcome to Bank\n" 
-    "1. Add an Account\n"
-    "2. Deposit Money\n"
-    "3. Withdraw Money\n"
-    "4. View Balance\n")
+
+    print("Welcome to Bank\n"
+          "1. Add an Account\n"
+          "2. Deposit Money\n"
+          "3. Withdraw Money\n"
+          "4. View Balance\n")
+
     bank_menu = int(input("Please enter an integer between 1-4: "))
 
     match bank_menu:
+
         case 1:
             accountholder_name = input("Enter the name of the account holder: ")
             accountholder_balance = int(input("Enter the balance of the account: "))
-            accounts.update({accountholder_name: Account(accountholder_name, accountholder_balance)})
-            print("Account Added Successfully")
-            
+
+            if accountholder_name in accounts:
+                print("Account already exists")
+            else:
+                accounts[accountholder_name] = accountholder_balance
+                print("Account Added Successfully")
+
         case 2:
             accountholder_name = input("Enter the name of the Account: ")
-            amount = int(input("Enter the amount you want to deposit: "))
-            account = accounts.get(accountholder_name)
-            new_balance = account.Deposit(amount)
-            print("New Balance: ", new_balance)
+
+            if accountholder_name in accounts:
+                amount = int(input("Enter the amount you want to deposit: "))
+                accounts[accountholder_name] += amount
+                print("New Balance:", accounts[accountholder_name])
+            else:
+                print("Account not found")
 
         case 3:
             accountholder_name = input("Enter the name of the Account: ")
-            amount = int(input("Enter the amount you want to Withdraw: "))
-            account = accounts.get(accountholder_name)
-            new_balance = account.Withdraw(amount)
-            print("New Balance: ", new_balance)
+
+            if accountholder_name in accounts:
+                amount = int(input("Enter the amount you want to Withdraw: "))
+
+                if accounts[accountholder_name] >= amount:
+                    accounts[accountholder_name] -= amount
+                    print("New Balance:", accounts[accountholder_name])
+                else:
+                    print("Insufficient Funds")
+            else:
+                print("Account not found")
 
         case 4:
             accountholder_name = input("Enter the name of the Account: ")
-            account = accounts.get(accountholder_name)
-            balance = account.ViewBalance()
-            print("Balance : ", balance)
-            
+
+            if accountholder_name in accounts:
+                print("Balance:", accounts[accountholder_name])
+            else:
+                print("Account not found")
+
         case _:
             print("Please enter a number between 1-4")
 
-def Analytics(): 
-    text = input("Enter the text (please avoid any extra spaces): ")
-    words = text.split()
-    count = len(words)
-    print("Word Count: ", count)
+        
+
+
+def Analytics():
+    text = input("Enter the text: ")
+    print("Word Count:", len(text.split()))
+
 
 def GridExplorer():
-    Grid = [[" ", " ", " "],
-            [" ", " ", " "],
-            [" ", " ", " "]]
 
     player = [1, 1]
 
@@ -154,62 +165,68 @@ def GridExplorer():
                 [" ", " ", " "],
                 [" ", " ", " "]]
 
-        row, col = player
-        temp[row][col] = "P"
+        r, c = player
+        temp[r][c] = "P"
 
-        for r in temp:
-            print(r)
+        for row in temp:
+            print(row)
 
-        direction = input("Move (WASD), E for Exit: ").lower()
+        move = input("Move (WASD), E to exit: ").lower()
 
-        if direction == "e":
+        if move == "e":
             break
 
-        new_row, new_col = player
+        row, col = player
 
-        if direction == "w":
-            new_row -= 1
-        elif direction == "s":
-            new_row += 1
-        elif direction == "a":
-            new_col -= 1
-        elif direction == "d":
-            new_col += 1
+        if move == "w":
+            row -= 1
+        elif move == "s":
+            row += 1
+        elif move == "a":
+            col -= 1
+        elif move == "d":
+            col += 1
 
-        if 0 <= new_row <= 2 and 0 <= new_col <= 2:
-            player[0] = new_row
-            player[1] = new_col
+        if 0 <= row <= 2 and 0 <= col <= 2:
+            player = [row, col]
 
-
-    
 
 while True:
+
     print("Welcome to Life Manager System\n"
-      "1. Contacts\n"
-      "2. Tasks\n"
-      "3. Bank Account\n"
-      "4. Analytics\n"
-      "5. Grid Explorer\n"
-      "6. Save / Load\n"
-      "7. Exit")
+          "1. Contacts\n"
+          "2. Tasks\n"
+          "3. Bank Account\n"
+          "4. Analytics\n"
+          "5. Grid Explorer\n"
+          "6. Save / Load\n"
+          "7. Exit")
+
     menu_input = int(input("Please enter an integer between 1-7: "))
 
     match menu_input:
+
         case 1:
             Contacts(contacts)
+
         case 2:
             Tasks(tasks)
+
         case 3:
             BankMenu(accounts)
+
         case 4:
             Analytics()
+
         case 5:
             GridExplorer()
-        case 6:
-            #call function for Save/Load
-            pass
-        case 7:
-            break
-        case _:
-            print("Please enter a number between 1-7")
 
+        case 6:
+            WriteFile()
+
+        case 7:
+            WriteFile()
+            break
+
+        case _:
+            print("Please enter an integer between 1-7: ")
